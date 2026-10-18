@@ -4,6 +4,14 @@ All notable changes to this project are documented in this file.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Release workflow that builds binaries for Linux (x86_64, aarch64), macOS
+  (Apple Silicon, Intel) and Windows (x86_64) and attaches them with a
+  `SHA256SUMS` file to the GitHub release of every `v*` tag.
+
 ## [0.1.0] - 2026-10-18
 
 First release.

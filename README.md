@@ -71,7 +71,11 @@ This is the real output of the program (rendered with ratatui's `TestBackend` at
 
 ## Installation
 
-You need a Rust toolchain (1.88 or newer to build the program; the test suite's dev-dependencies need 1.89).
+**Prebuilt binaries** for Linux (x86_64, aarch64), macOS (Apple Silicon, Intel) and Windows (x86_64) are attached to each
+[GitHub release](https://github.com/timur-manjosov/gauss-trainer/releases), together with a `SHA256SUMS` file. Unpack the archive and run `gauss-trainer`.
+The binaries are not code-signed, so macOS and Windows may ask you to confirm the first start.
+
+To build from source you need a Rust toolchain (1.88 or newer to build the program; the test suite's dev-dependencies need 1.89).
 
 ```sh
 # straight from GitHub
