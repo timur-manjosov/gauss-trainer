@@ -21,4 +21,5 @@ pub mod hint;
 pub mod matrix;
 pub mod notation;
 pub mod ops;
+pub mod parse;
 pub mod rational;
