@@ -19,7 +19,7 @@ expression: "screen(&app, 80, 24)"
  │      ⎢                               ⎥  │ ││                               │
  │ ■ Pivot = 1  ■ Pivot ≠ 1                  ││                               │
  ╰───────────────────────────────────────────╯╰───────────────────────────────╯
-  Rang r = 5  ·  noch offen: 4 Pivots ≠ 1 · 5 Einträge ≠ 0 in Pivotspalten
+  Rang r = 5  ·  noch offen: 1 Pivot ≠ 1 · 5 Einträge ≠ 0  6×6 · eigene Matrix
   › Ansicht: gestapelte Brüche.
 
  ╭ Befehl ────────────────────────────────────────────────────────────────────╮

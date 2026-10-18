@@ -19,7 +19,7 @@ expression: "screen(&app, 80, 24)"
  │                                              ││                            │
  │ ■ Pivot = 1  ■ Pivot ≠ 1  ■ muss 0 werden    ││                            │
  ╰──────────────────────────────────────────────╯╰────────────────────────────╯
-  Rang r = 4  ·  noch offen: 4 Pivots ≠ 1 · 3 Einträge ≠ 0 in Pivotspalten
+  Rang r = 4  ·  noch offen: 1 Pivot ≠ 1 · 3 Einträge ≠ 0  4×5 · eigene Matrix
 
 
  ╭ Befehl ────────────────────────────────────────────────────────────────────╮

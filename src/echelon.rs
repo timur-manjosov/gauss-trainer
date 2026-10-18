@@ -19,7 +19,8 @@ use crate::matrix::Matrix;
 use crate::ops::{OpKind, RowOperation};
 use crate::rational::{self, Q};
 
-/// The first nonzero entry of a row.
+/// A pivot: the first nonzero entry of a row, provided no row above already
+/// has its pivot in the same column.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Pivot {
     /// Zero-based row.
@@ -33,7 +34,7 @@ pub struct Pivot {
 /// What the analysis says about a single matrix cell.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum CellRole {
-    /// The first nonzero entry of its row.
+    /// A pivot (see [`Pivot`]).
     Pivot {
         /// Whether the entry already equals 1.
         is_one: bool,
@@ -91,11 +92,13 @@ impl Analysis {
     /// Analyses `m`.
     #[must_use]
     pub fn new(m: &Matrix) -> Self {
-        let mut pivots = Vec::new();
+        // A row's first nonzero entry is a pivot only if no row above already has its
+        // pivot in that column; otherwise that entry still has to become 0.
+        let mut pivots: Vec<Pivot> = Vec::new();
         let mut zero_rows = Vec::new();
         for i in 0..m.rows() {
             match m.leading_column(i) {
-                Some(col) => {
+                Some(col) if pivots.iter().all(|p| p.col != col) => {
                     let is_one = m.get(i, col).is_some_and(rational::is_one);
                     pivots.push(Pivot {
                         row: i,
@@ -103,29 +106,26 @@ impl Analysis {
                         is_one,
                     });
                 }
+                Some(_) => {}
                 None => zero_rows.push(i),
             }
         }
 
         let mut pivot_cols: Vec<usize> = pivots.iter().map(|p| p.col).collect();
         pivot_cols.sort_unstable();
-        pivot_cols.dedup();
 
-        // The topmost row whose pivot lies in column j owns that column.
         let mut to_clear = Vec::new();
-        for &j in &pivot_cols {
-            let owner = pivots.iter().find(|p| p.col == j).map(|p| p.row);
+        for p in &pivots {
             for i in 0..m.rows() {
-                let nonzero = m.get(i, j).is_some_and(|q| !q.is_zero());
-                if nonzero && Some(i) != owner {
-                    to_clear.push((i, j));
+                if i != p.row && m.get(i, p.col).is_some_and(|q| !q.is_zero()) {
+                    to_clear.push((i, p.col));
                 }
             }
         }
         to_clear.sort_unstable();
 
         let mut issues = Vec::new();
-        if let Some(last) = pivots.last().map(|p| p.row) {
+        if let Some(last) = (0..m.rows()).rev().find(|&i| !m.row_is_zero(i)) {
             issues.extend(
                 zero_rows
                     .iter()
@@ -170,7 +170,7 @@ impl Analysis {
         self.rank
     }
 
-    /// The pivots of all nonzero rows, top to bottom.
+    /// The pivots, top to bottom: one per pivot column (see [`Pivot`]).
     #[must_use]
     pub fn pivots(&self) -> &[Pivot] {
         &self.pivots
@@ -543,6 +543,31 @@ mod tests {
         assert!(an.issues().contains(&Issue::ZeroRowAboveNonzero { row: 0 }));
         assert!(an.issues().contains(&Issue::PivotOrder { row: 2 }));
         assert_eq!(an.missing(true)[0], "Stufenform fehlt");
+    }
+
+    #[test]
+    fn only_the_topmost_entry_of_a_column_is_its_pivot() {
+        // Rows 2 and 3 start in column 1 too: those entries must become 0, they are no pivots.
+        let a = Analysis::new(&Matrix::course_example());
+        assert_eq!(
+            a.pivots(),
+            &[Pivot {
+                row: 0,
+                col: 0,
+                is_one: true
+            }]
+        );
+        assert_eq!(a.to_clear(), &[(1, 0), (2, 0)]);
+        assert_eq!(a.role(1, 0), CellRole::ToClear);
+        assert_eq!(a.missing(true), vec!["2 Einträge ≠ 0"]);
+        assert_eq!(a.rank(), 3);
+
+        // After clearing column 1, row 3 is blocked by the pivot of row 2 in column 2.
+        let b = Analysis::new(&m(&[&[1, -2, 3, -1], &[0, 3, -4, 4], &[0, 7, -7, 6]]));
+        assert_eq!(b.pivots().len(), 2);
+        assert_eq!(b.role(1, 1), CellRole::Pivot { is_one: false });
+        assert_eq!(b.role(2, 1), CellRole::ToClear);
+        assert_eq!(b.role(0, 1), CellRole::ToClear);
     }
 
     #[test]

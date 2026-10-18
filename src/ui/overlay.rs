@@ -35,7 +35,7 @@ pub fn render(
 ) {
     match app.overlay() {
         Overlay::None => {}
-        Overlay::Help => scrollable(frame, area, " Hilfe ", 86, scroll, pal, |w| {
+        Overlay::Help => scrollable(frame, area, " Hilfe ", 110, scroll, pal, |w| {
             help_lines(pal, w)
         }),
         Overlay::ConfirmSolution => confirm_solution(frame, area, pal),
@@ -47,13 +47,13 @@ pub fn render(
                 " Musterlösung · ausgehend von {} ",
                 matrix_label(*from_step)
             );
-            scrollable(frame, area, &title, 90, scroll, pal, |w| {
+            scrollable(frame, area, &title, 110, scroll, pal, |w| {
                 solution_lines(solution, *from_step, pal, brackets, w)
             });
         }
         Overlay::Check { at_step, report } => {
             let title = format!(" Kontrolle · Vergleich mit {} ", matrix_label(*at_step));
-            scrollable(frame, area, &title, 84, scroll, pal, |w| {
+            scrollable(frame, area, &title, 110, scroll, pal, |w| {
                 check_lines(report, *at_step, pal, w)
             });
         }

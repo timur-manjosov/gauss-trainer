@@ -23,7 +23,7 @@ expression: "screen(&app, 100, 28)"
  │                                                      ││                                        │
  │ ■ Pivot = 1  ■ Pivot ≠ 1  ■ muss 0 werden            ││                                        │
  ╰──────────────────────────────────────────────────────╯╰────────────────────────────────────────╯
-  Rang r = 3  ·  noch offen: 2 Pivots ≠ 1 · 2 Einträge ≠ 0 in Pivotspalten     3×4 · eigene Matrix
+  Rang r = 3  ·  noch offen: 2 Einträge ≠ 0 in Pivotspalten                    3×4 · eigene Matrix
   › Eigene Matrix eingeben – Zeilen mit ; trennen, z. B. 1 2 3; 4 5 6
 
  ╭ Eigene Matrix · Zeilen mit ; trennen · Esc bricht ab ──────────────────────────────────────────╮

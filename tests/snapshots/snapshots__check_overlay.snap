@@ -11,19 +11,19 @@ expression: "screen(&app, 100, 28)"
  │                1 ⎡ 1   −2    3   −1 ⎤                ││                                        │
  │                  ⎢                  ⎥                ││                                        │
  │               ▎2 ⎢ 0    3   −4    4 ⎥                ││                                        │
- │      ╭ Kontrolle · Vergleich mit A₁ ────────────────────────────────────────────────────╮      │
- │      │                                                                                  │      │
- │      │  ✗ Stimmt weder mit A₁ noch mit der Treppennormalform überein.                   │      │
- │      │                                                                                  │      │
- │      │  Am nächsten liegt A₁. Abweichungen (1 Eintrag):                                 │      │
- │      │     Zeile 2, Spalte 4: du hast 5, richtig wäre 4                                 │      │
- │      │                                                                                  │      │
- │      │  Von der Treppennormalform weicht deine Matrix in 10 Einträgen ab.               │      │
- │      ╰──────────────────────────────────────────────────────────────────── Esc schließt ╯      │
+ │╭ Kontrolle · Vergleich mit A₁ ────────────────────────────────────────────────────────────────╮│
+ ││                                                                                              ││
+ ││  ✗ Stimmt weder mit A₁ noch mit der Treppennormalform überein.                               ││
+ ││                                                                                              ││
+ ││  Am nächsten liegt A₁. Abweichungen (1 Eintrag):                                             ││
+ ││     Zeile 2, Spalte 4: du hast 5, richtig wäre 4                                             ││
+ ││                                                                                              ││
+ ││  Von der Treppennormalform weicht deine Matrix in 10 Einträgen ab.                           ││
+ │╰──────────────────────────────────────────────────────────────────────────────── Esc schließt ╯│
  │                                                      ││                                        │
  │ ■ Pivot = 1  ■ Pivot ≠ 1  ■ muss 0 werden            ││                                        │
  ╰──────────────────────────────────────────────────────╯╰────────────────────────────────────────╯
-  Rang r = 3  ·  noch offen: Stufenform fehlt · 2 Pivots ≠ 1 · 3 Einträge ≠ 0  3×4 · eigene Matrix
+  Rang r = 3  ·  noch offen: 1 Pivot ≠ 1 · 3 Einträge ≠ 0 in Pivotspalten      3×4 · eigene Matrix
 
 
  ╭ Befehl ────────────────────────────────────────────────────────────────────────────────────────╮
