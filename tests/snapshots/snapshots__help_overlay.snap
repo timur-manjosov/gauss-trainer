@@ -25,7 +25,7 @@ expression: "screen(&app, 100, 34)"
  ││                               Format: 1 2 3; 4 5 6 oder [[1,2,3],[4,5,6]]                    ││
  ││                                                                                              ││
  ││  Lernhilfen  (nur auf Anfrage)                                                               ││
- ││    t  ·  F2                   Tipp, jedes Mal eine Stufe genauer (1 Frage · 2 Art · 3        ││
+ ││    t  ·  F2  ·  Ctrl+G        Tipp, jedes Mal eine Stufe genauer (1 Frage · 2 Art · 3        ││
  ││                               Schritt)                                                       ││
  ││    lösung                     Musterlösung – erst nach Bestätigung                           ││
  ╰│    c [Matrix]  ·  F3          eigene Rechnung prüfen (gegen A_k und Treppennormalform)       │╯

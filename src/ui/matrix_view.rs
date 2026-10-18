@@ -3,7 +3,7 @@
 //! Entries are drawn as stacked fractions (numerator, bar, denominator) with
 //! a true minus sign (−) in front of each negative entry, right-aligned
 //! within its column. Rows are enclosed by tall Unicode brackets. The matrix is
-//! first drawn onto a [`Canvas`] of styled characters and then converted to
+//! first drawn onto a grid of styled characters and then converted to
 //! ratatui lines.
 
 use ratatui::style::{Modifier, Style};

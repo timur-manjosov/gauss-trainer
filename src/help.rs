@@ -72,7 +72,7 @@ pub const SECTIONS: &[Section] = &[
         title: "Lernhilfen  (nur auf Anfrage)",
         rows: &[
             (
-                "t  ·  F2",
+                "t  ·  F2  ·  Ctrl+G",
                 "Tipp, jedes Mal eine Stufe genauer (1 Frage · 2 Art · 3 Schritt)",
             ),
             ("lösung", "Musterlösung – erst nach Bestätigung"),
