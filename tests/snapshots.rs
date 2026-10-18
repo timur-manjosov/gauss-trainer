@@ -80,6 +80,17 @@ fn fractions_changed_rows_and_undone_steps() {
     insta::assert_snapshot!(screen(&app, 100, 28));
 }
 
+/// The screen embedded in the README (kept in sync by `tests/readme.rs`).
+#[test]
+fn readme_demo() {
+    let mut app = example();
+    run(
+        &mut app,
+        &["a -2 1 2", "a -3 1 3", "m 2 1/3", "a 2 2 1", "tipp", "tipp"],
+    );
+    insta::assert_snapshot!(screen(&app, 100, 28));
+}
+
 #[test]
 fn solved_state() {
     let mut app = example();
