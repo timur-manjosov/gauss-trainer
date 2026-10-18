@@ -124,6 +124,18 @@ impl Matrix {
         )
     }
 
+    /// The 3×4 example matrix of the course, `[[1,-2,3,-1],[2,-1,2,2],[3,1,2,3]]`.
+    ///
+    /// Its Treppennormalform is `[[1,0,0,15/7],[0,1,0,-4/7],[0,0,1,-10/7]]`.
+    #[must_use]
+    pub fn course_example() -> Self {
+        Self {
+            rows: 3,
+            cols: 4,
+            entries: [1, -2, 3, -1, 2, -1, 2, 2, 3, 1, 2, 3].map(int).to_vec(),
+        }
+    }
+
     /// Number of rows.
     #[must_use]
     pub fn rows(&self) -> usize {

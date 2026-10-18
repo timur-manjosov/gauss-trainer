@@ -14,10 +14,12 @@
 #![deny(clippy::float_arithmetic)]
 #![cfg_attr(not(test), deny(clippy::unwrap_used, clippy::expect_used))]
 
+pub mod app;
 pub mod check;
 pub mod echelon;
 pub mod generator;
 pub mod hint;
+pub mod input;
 pub mod matrix;
 pub mod notation;
 pub mod ops;
