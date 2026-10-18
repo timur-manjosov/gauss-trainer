@@ -16,8 +16,10 @@
 
 pub mod app;
 pub mod check;
+pub mod cli;
 pub mod echelon;
 pub mod generator;
+pub mod help;
 pub mod hint;
 pub mod input;
 pub mod matrix;
@@ -25,3 +27,5 @@ pub mod notation;
 pub mod ops;
 pub mod parse;
 pub mod rational;
+pub mod tui;
+pub mod ui;

@@ -232,9 +232,10 @@ impl Analysis {
 
     /// Short German phrases describing what is still missing.
     ///
-    /// The list is empty exactly when [`Analysis::is_rref`] holds.
+    /// The list is empty exactly when [`Analysis::is_rref`] holds. With
+    /// `compact` the phrases are shortened for narrow terminals.
     #[must_use]
-    pub fn missing(&self) -> Vec<String> {
+    pub fn missing(&self, compact: bool) -> Vec<String> {
         let normalise = self
             .issues
             .iter()
@@ -249,21 +250,25 @@ impl Analysis {
         });
         let mut parts = Vec::new();
         if shape {
-            parts.push("Stufenform (Zeilen vertauschen)".to_owned());
+            parts.push("Stufenform fehlt".to_owned());
         }
-        if normalise > 0 {
-            parts.push(if normalise == 1 {
-                "1 Pivot ≠ 1".to_owned()
-            } else {
-                format!("{normalise} Pivots ≠ 1")
-            });
+        match normalise {
+            0 => {}
+            1 => parts.push("1 Pivot ≠ 1".to_owned()),
+            n => parts.push(format!("{n} Pivots ≠ 1")),
         }
-        if clear > 0 {
-            parts.push(if clear == 1 {
-                "1 Eintrag in Pivotspalte ≠ 0".to_owned()
-            } else {
-                format!("{clear} Einträge in Pivotspalten ≠ 0")
-            });
+        let (one, many) = if compact {
+            ("1 Eintrag ≠ 0", "Einträge ≠ 0")
+        } else {
+            (
+                "1 Eintrag ≠ 0 in Pivotspalte",
+                "Einträge ≠ 0 in Pivotspalten",
+            )
+        };
+        match clear {
+            0 => {}
+            1 => parts.push(one.to_owned()),
+            n => parts.push(format!("{n} {many}")),
         }
         parts
     }
@@ -524,9 +529,10 @@ mod tests {
         assert_eq!(an.rank(), 2);
         assert!(!an.is_rref());
         assert_eq!(
-            an.missing(),
-            vec!["1 Pivot ≠ 1", "1 Eintrag in Pivotspalte ≠ 0"]
+            an.missing(false),
+            vec!["1 Pivot ≠ 1", "1 Eintrag ≠ 0 in Pivotspalte"]
         );
+        assert_eq!(an.missing(true), vec!["1 Pivot ≠ 1", "1 Eintrag ≠ 0"]);
     }
 
     #[test]
@@ -536,7 +542,7 @@ mod tests {
         let an = Analysis::new(&a);
         assert!(an.issues().contains(&Issue::ZeroRowAboveNonzero { row: 0 }));
         assert!(an.issues().contains(&Issue::PivotOrder { row: 2 }));
-        assert!(an.missing()[0].starts_with("Stufenform"));
+        assert_eq!(an.missing(true)[0], "Stufenform fehlt");
     }
 
     #[test]
@@ -552,6 +558,6 @@ mod tests {
         assert!(is_rref(&m(&[&[1, 0], &[0, 1]])));
         assert!(is_rref(&m(&[&[1, 2, 0, 3], &[0, 0, 1, 4]])));
         assert!(!is_rref(&m(&[&[1, 2, 3], &[0, 0, 1]])));
-        assert!(Analysis::new(&m(&[&[1, 0]])).missing().is_empty());
+        assert!(Analysis::new(&m(&[&[1, 0]])).missing(false).is_empty());
     }
 }

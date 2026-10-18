@@ -130,10 +130,7 @@ pub enum Overlay {
     #[default]
     None,
     /// The help screen.
-    Help {
-        /// First visible line.
-        scroll: usize,
-    },
+    Help,
     /// "Really show the reference solution?"
     ConfirmSolution,
     /// The reference solution of the current matrix.
@@ -142,8 +139,6 @@ pub enum Overlay {
         from_step: usize,
         /// The solution.
         solution: Box<Solution>,
-        /// First visible line.
-        scroll: usize,
     },
     /// The result of check mode.
     Check {
@@ -175,9 +170,9 @@ pub enum Input {
     Enter,
     /// Cancel / clear.
     Escape,
-    /// Older entry in the command history (scrolls up inside overlays).
+    /// Older entry in the command history (scrolls overlays, see the `tui` module).
     Up,
-    /// Newer entry in the command history (scrolls down inside overlays).
+    /// Newer entry in the command history (scrolls overlays, see the `tui` module).
     Down,
     /// Scroll a page up inside overlays.
     PageUp,
@@ -623,28 +618,13 @@ impl App {
             }
             return;
         }
-        let max_scroll = match &self.overlay {
-            Overlay::Solution { solution, .. } => solution.steps.len(),
-            Overlay::Help { .. } => usize::MAX / 2,
-            _ => 0,
-        };
+        // Scrolling is presentation state and handled by the view.
         let close = matches!(
             input,
             Input::Escape | Input::Enter | Input::Char('q' | 'Q') | Input::Help | Input::Char('?')
         );
         if close {
             self.overlay = Overlay::None;
-            return;
-        }
-        let delta: isize = match input {
-            Input::Up => -1,
-            Input::Down => 1,
-            Input::PageUp => -8,
-            Input::PageDown => 8,
-            _ => return,
-        };
-        if let Overlay::Help { scroll } | Overlay::Solution { scroll, .. } = &mut self.overlay {
-            *scroll = scroll.saturating_add_signed(delta).min(max_scroll);
         }
     }
 
@@ -732,7 +712,7 @@ impl App {
                 self.layout = self.layout.cycled();
                 self.feedback = Some(self.info(&format!("Ansicht: {}.", self.layout.label())));
             }
-            Command::Help => self.overlay = Overlay::Help { scroll: 0 },
+            Command::Help => self.overlay = Overlay::Help,
             Command::Quit => self.quit = true,
         }
     }
@@ -925,7 +905,6 @@ impl App {
         self.overlay = Overlay::Solution {
             from_step: self.step(),
             solution: Box::new(solve(&self.current)),
-            scroll: 0,
         };
     }
 
@@ -1268,30 +1247,6 @@ mod tests {
     }
 
     #[test]
-    fn solution_overlay_scrolls_within_bounds() {
-        let mut app = example_app();
-        run(&mut app, "lösung");
-        app.handle(Input::Char('j'));
-        for _ in 0..100 {
-            app.handle(Input::Down);
-        }
-        let Overlay::Solution {
-            scroll, solution, ..
-        } = app.overlay()
-        else {
-            panic!()
-        };
-        assert_eq!(*scroll, solution.steps.len());
-        for _ in 0..100 {
-            app.handle(Input::Up);
-        }
-        let Overlay::Solution { scroll, .. } = app.overlay() else {
-            panic!()
-        };
-        assert_eq!(*scroll, 0);
-    }
-
-    #[test]
     fn exam_mode_locks_assistance_and_runs_a_timer() {
         let mut app = example_app();
         run(&mut app, "exam");
@@ -1361,7 +1316,7 @@ mod tests {
     fn question_mark_opens_help_only_on_an_empty_line() {
         let mut app = example_app();
         app.handle(Input::Char('?'));
-        assert!(matches!(app.overlay(), Overlay::Help { .. }));
+        assert_eq!(*app.overlay(), Overlay::Help);
         app.handle(Input::Char('?'));
         assert_eq!(*app.overlay(), Overlay::None);
         app.handle(Input::Char('x'));
