@@ -1,0 +1,32 @@
+---
+source: tests/snapshots.rs
+expression: "screen(&app, 100, 28)"
+---
+ ╭ Matrix · A₀ ──────────────────────────────────── 3×3 ╮╭ Rechenprotokoll ─────────── 0 Schritte ╮
+ │                                                      ││   A₀  Startmatrix                      │
+ │                                                      ││                                        │
+ │                                                      ││   Noch keine Schritte.                 │
+ │                                                      ││   Probiere z. B.  a -2 1 2             │
+ │                        1   2   3                     ││                                        │
+ │                    1 ⎡ 0   2   4 ⎤                   ││                                        │
+ │                      ⎢           ⎥                   ││                                        │
+ │                    2 ⎢ 1   1   1 ⎥                   ││                                        │
+ │                      ⎢           ⎥                   ││                                        │
+ │                    3 ⎣ 2   2   2 ⎦                   ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │ ■ Pivot = 1  ■ Pivot ≠ 1  ■ muss 0 werden            ││                                        │
+ ╰──────────────────────────────────────────────────────╯╰────────────────────────────────────────╯
+  Rang r = 2  ·  noch offen: Stufenform fehlt · 2 Pivots ≠ 1 · 3 Einträge ≠ 0  3×3 · eigene Matrix
+  ◆ Tipp 1/3: Welche Spalte ist als Nächstes dran – und welcher Eintrag soll dort zur Pivotstelle
+    werden? Ist er schon 1, und stehen in der Spalte sonst nur Nullen?
+ ╭ Befehl ────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ❯ m 1 -1/2  ·  a 8 1 2  ·  s 1 2  ·  ? für die Hilfe                                           │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+  Enter ausführen  ↑↓ Verlauf  Ctrl+Z Zurück  Ctrl+Y Vor  Ctrl+R Reset       ? Hilfe  Ctrl+Q Ende

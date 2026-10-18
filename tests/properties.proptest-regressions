@@ -1,0 +1,9 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc 47af31c78b839aac5e778efd658b32084a78a2dfcb6126b80b583bbfc3f1f24d # shrinks to m = Matrix { rows: 2, cols: 2, entries: [Ratio { numer: -1, denom: 1 }, Ratio { numer: 1, denom: 1 }, Ratio { numer: 0, denom: 1 }, Ratio { numer: 1, denom: 1 }] }
+cc 8344624ee79c4cd6548eb856feb32e68a8effa5a57cf1f0bbdbd7b672d1ddc16 # shrinks to m = Matrix { rows: 2, cols: 2, entries: [Ratio { numer: 0, denom: 1 }, Ratio { numer: -1, denom: 1 }, Ratio { numer: 1, denom: 1 }, Ratio { numer: 0, denom: 1 }] }, a = [], b = [(2, 0, 0, 0, 1), (2, 0, 0, 0, 1), (1, 0, 0, -1, 1), (1, 0, 0, 0, 1), (0, 0, 0, 0, 1), (0, 0, 0, 0, 1)]
+cc 44c59e2c0b93371c03a4587bc1f1963a4de202bf992e1e042e7afa739918aece # shrinks to m = Matrix { rows: 2, cols: 2, entries: [Ratio { numer: 0, denom: 1 }, Ratio { numer: -1, denom: 1 }, Ratio { numer: 2, denom: 1 }, Ratio { numer: 0, denom: 1 }] }, steps = [Op((1, 0, 0, -1, 1))]

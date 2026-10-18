@@ -1,0 +1,32 @@
+---
+source: tests/snapshots.rs
+expression: "screen(&example(), 100, 28)"
+---
+ ╭ Matrix · A₀ ──────────────────────────────────── 3×4 ╮╭ Rechenprotokoll ─────────── 0 Schritte ╮
+ │                                                      ││   A₀  Startmatrix                      │
+ │                                                      ││                                        │
+ │                                                      ││   Noch keine Schritte.                 │
+ │                                                      ││   Probiere z. B.  a -2 1 2             │
+ │                     1    2   3    4                  ││                                        │
+ │                 1 ⎡ 1   −2   3   −1 ⎤                ││                                        │
+ │                   ⎢                 ⎥                ││                                        │
+ │                 2 ⎢ 2   −1   2    2 ⎥                ││                                        │
+ │                   ⎢                 ⎥                ││                                        │
+ │                 3 ⎣ 3    1   2    3 ⎦                ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │                                                      ││                                        │
+ │ ■ Pivot = 1  ■ Pivot ≠ 1  ■ muss 0 werden            ││                                        │
+ ╰──────────────────────────────────────────────────────╯╰────────────────────────────────────────╯
+  Rang r = 3  ·  noch offen: 2 Pivots ≠ 1 · 2 Einträge ≠ 0 in Pivotspalten     3×4 · eigene Matrix
+  › Willkommen! Gib Zeilenoperationen ein, z. B. »a -2 1 2« – ? zeigt die Hilfe.
+
+ ╭ Befehl ────────────────────────────────────────────────────────────────────────────────────────╮
+ │ ❯ m 1 -1/2  ·  a 8 1 2  ·  s 1 2  ·  ? für die Hilfe                                           │
+ ╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+  Enter ausführen  ↑↓ Verlauf  Ctrl+Z Zurück  Ctrl+Y Vor  Ctrl+R Reset       ? Hilfe  Ctrl+Q Ende

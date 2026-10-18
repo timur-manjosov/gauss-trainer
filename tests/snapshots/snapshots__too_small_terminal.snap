@@ -1,0 +1,15 @@
+---
+source: tests/snapshots.rs
+expression: "screen(&example(), 60, 18)"
+---
+
+
+
+
+
+
+
+                  Das Terminal ist zu klein
+
+  Aktuell 60×18 – benötigt werden mindestens 80×24 Zeichen.
+ Bitte vergrößere das Fenster. Ctrl+Q beendet das Programm.
